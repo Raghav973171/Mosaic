@@ -1,0 +1,47 @@
+import { useState } from "react";
+import { toast } from "../components/ui/use-toast";
+
+const Newsletter = () => {
+  const [email, setEmail] = useState("");
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // In a real app, you'd send this to your backend
+    console.log(email);
+    toast({
+      title: "Successfully subscribed!",
+      description: "Thank you for subscribing to our newsletter.",
+    });
+    setEmail("");
+  };
+
+  return (
+    <section className="py-16 bg-mosaic-500 text-white">
+      <div className="container mx-auto px-4 text-center">
+        <h2 className="text-3xl font-bold mb-6">
+          Stay Updated with Our Latest News
+        </h2>
+        <form onSubmit={handleSubmit} className="max-w-md mx-auto">
+          <div className="flex gap-4">
+            <input
+              type="email"
+              placeholder="Enter your email"
+              className="flex-1 p-3 rounded text-gray-900"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+            <button
+              type="submit"
+              className="px-6 py-3 bg-white text-mosaic-500 rounded hover:bg-gray-100 transition-colors"
+            >
+              Subscribe
+            </button>
+          </div>
+        </form>
+      </div>
+    </section>
+  );
+};
+
+export default Newsletter;

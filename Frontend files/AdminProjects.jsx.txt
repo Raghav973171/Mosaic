@@ -1,0 +1,109 @@
+import { useState } from "react";
+import { toast } from "../components/ui/use-toast";
+
+const AdminProjects = () => {
+  const [projects, setProjects] = useState([
+    {
+      id: 1,
+      title: "Modern Office Design",
+      description: "A complete office transformation project",
+      image: "https://images.unsplash.com/photo-1493397212122-2b85dda8106b",
+    },
+  ]);
+
+  const [newProject, setNewProject] = useState({
+    title: "",
+    description: "",
+    image: "",
+  });
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setProjects([...projects, { ...newProject, id: Date.now() }]);
+    setNewProject({ title: "", description: "", image: "" });
+    toast({
+      title: "Success",
+      description: "Project added successfully",
+    });
+  };
+
+  const handleDelete = (id) => {
+    setProjects(projects.filter((project) => project.id !== id));
+    toast({
+      title: "Success",
+      description: "Project deleted successfully",
+    });
+  };
+
+  return (
+    <div>
+      <h2 className="text-2xl font-bold mb-6">Manage Projects</h2>
+      
+      <form onSubmit={handleSubmit} className="mb-8 space-y-4">
+        <input
+          type="text"
+          placeholder="Project Title"
+          className="w-full p-3 border rounded"
+          value={newProject.title}
+          onChange={(e) =>
+            setNewProject({ ...newProject, title: e.target.value })
+          }
+          required
+        />
+        <input
+          type="text"
+          placeholder="Project Description"
+          className="w-full p-3 border rounded"
+          value={newProject.description}
+          onChange={(e) =>
+            setNewProject({ ...newProject, description: e.target.value })
+          }
+          required
+        />
+        <input
+          type="url"
+          placeholder="Image URL"
+          className="w-full p-3 border rounded"
+          value={newProject.image}
+          onChange={(e) =>
+            setNewProject({ ...newProject, image: e.target.value })
+          }
+          required
+        />
+        <button
+          type="submit"
+          className="px-4 py-2 bg-mosaic-500 text-white rounded hover:bg-mosaic-600 transition-colors"
+        >
+          Add Project
+        </button>
+      </form>
+
+      <div className="grid md:grid-cols-2 gap-6">
+        {projects.map((project) => (
+          <div
+            key={project.id}
+            className="bg-white rounded-lg shadow-md overflow-hidden"
+          >
+            <img
+              src={project.image}
+              alt={project.title}
+              className="w-full h-48 object-cover"
+            />
+            <div className="p-4">
+              <h3 className="text-xl font-bold mb-2">{project.title}</h3>
+              <p className="text-gray-600 mb-4">{project.description}</p>
+              <button
+                onClick={() => handleDelete(project.id)}
+                className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 transition-colors"
+              >
+                Delete
+              </button>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+export default AdminProjects;

@@ -1,0 +1,89 @@
+import { useState } from "react";
+import { toast } from "../components/ui/use-toast";
+
+const Hero = () => {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    city: "",
+  });
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // In a real app, you'd send this to your backend
+    console.log(formData);
+    toast({
+      title: "Consultation Request Received",
+      description: "We'll get back to you soon!",
+    });
+    setFormData({ name: "", email: "", phone: "", city: "" });
+  };
+
+  return (
+    <div className="container mx-auto px-4 py-16 grid md:grid-cols-2 gap-8 items-center">
+      <div>
+        <h1 className="text-5xl font-bold mb-6">
+          Consultation, <br />
+          Design, <br />& Marketing
+        </h1>
+        <p className="text-lg text-gray-600 mb-8">
+          Transform your vision into reality with our expert consultation services.
+        </p>
+      </div>
+      <div className="bg-white p-8 rounded-lg shadow-lg">
+        <h2 className="text-2xl font-bold mb-6">Get a Free Consultation</h2>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <input
+            type="text"
+            placeholder="Full Name"
+            className="w-full p-3 border rounded"
+            value={formData.name}
+            onChange={(e) =>
+              setFormData({ ...formData, name: e.target.value })
+            }
+            required
+          />
+          <input
+            type="email"
+            placeholder="Email Address"
+            className="w-full p-3 border rounded"
+            value={formData.email}
+            onChange={(e) =>
+              setFormData({ ...formData, email: e.target.value })
+            }
+            required
+          />
+          <input
+            type="tel"
+            placeholder="Phone Number"
+            className="w-full p-3 border rounded"
+            value={formData.phone}
+            onChange={(e) =>
+              setFormData({ ...formData, phone: e.target.value })
+            }
+            required
+          />
+          <input
+            type="text"
+            placeholder="City"
+            className="w-full p-3 border rounded"
+            value={formData.city}
+            onChange={(e) =>
+              setFormData({ ...formData, city: e.target.value })
+            }
+            required
+          />
+          <button
+            type="submit"
+            className="w-full bg-mosaic-500 text-white py-3 rounded hover:bg-mosaic-600 transition-colors"
+          >
+            Submit Request
+          </button>
+        </form>
+      </div>
+    </div>
+  );
+};
+
+export default Hero;

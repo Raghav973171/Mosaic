@@ -1,0 +1,119 @@
+import { useState } from "react";
+import { toast } from "../components/ui/use-toast";
+
+const AdminClients = () => {
+  const [clients, setClients] = useState([
+    {
+      id: 1,
+      name: "Sarah Johnson",
+      role: "CEO, TechCorp",
+      testimonial: "Working with Mosaic was a game-changing experience for our company.",
+      image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330",
+    },
+  ]);
+
+  const [newClient, setNewClient] = useState({
+    name: "",
+    role: "",
+    testimonial: "",
+    image: "",
+  });
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setClients([...clients, { ...newClient, id: Date.now() }]);
+    setNewClient({ name: "", role: "", testimonial: "", image: "" });
+    toast({
+      title: "Success",
+      description: "Client added successfully",
+    });
+  };
+
+  const handleDelete = (id) => {
+    setClients(clients.filter((client) => client.id !== id));
+    toast({
+      title: "Success",
+      description: "Client deleted successfully",
+    });
+  };
+
+  return (
+    <div>
+      <h2 className="text-2xl font-bold mb-6">Manage Clients</h2>
+      
+      <form onSubmit={handleSubmit} className="mb-8 space-y-4">
+        <input
+          type="text"
+          placeholder="Client Name"
+          className="w-full p-3 border rounded"
+          value={newClient.name}
+          onChange={(e) =>
+            setNewClient({ ...newClient, name: e.target.value })
+          }
+          required
+        />
+        <input
+          type="text"
+          placeholder="Role/Designation"
+          className="w-full p-3 border rounded"
+          value={newClient.role}
+          onChange={(e) =>
+            setNewClient({ ...newClient, role: e.target.value })
+          }
+          required
+        />
+        <textarea
+          placeholder="Testimonial"
+          className="w-full p-3 border rounded"
+          value={newClient.testimonial}
+          onChange={(e) =>
+            setNewClient({ ...newClient, testimonial: e.target.value })
+          }
+          required
+        />
+        <input
+          type="url"
+          placeholder="Image URL"
+          className="w-full p-3 border rounded"
+          value={newClient.image}
+          onChange={(e) =>
+            setNewClient({ ...newClient, image: e.target.value })
+          }
+          required
+        />
+        <button
+          type="submit"
+          className="px-4 py-2 bg-mosaic-500 text-white rounded hover:bg-mosaic-600 transition-colors"
+        >
+          Add Client
+        </button>
+      </form>
+
+      <div className="grid md:grid-cols-2 gap-6">
+        {clients.map((client) => (
+          <div
+            key={client.id}
+            className="bg-white rounded-lg shadow-md overflow-hidden p-6"
+          >
+            <img
+              src={client.image}
+              alt={client.name}
+              className="w-20 h-20 rounded-full mx-auto mb-4 object-cover"
+            />
+            <h3 className="text-xl font-bold text-center mb-2">{client.name}</h3>
+            <p className="text-gray-600 text-center mb-4">{client.role}</p>
+            <p className="text-gray-600 italic mb-4">"{client.testimonial}"</p>
+            <button
+              onClick={() => handleDelete(client.id)}
+              className="w-full px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 transition-colors"
+            >
+              Delete
+            </button>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+export default AdminClients;

@@ -1,0 +1,31 @@
+import Hero from "../components/Hero";
+import Services from "../components/Services";
+import AboutUs from "../components/AboutUs";
+import Projects from "../components/Projects";
+import Clients from "../components/Clients";
+import Newsletter from "../components/Newsletter";
+import { Link } from "react-router-dom";
+
+const Index = () => {
+  return (
+    <div className="min-h-screen bg-background">
+      <nav className="container mx-auto py-6 flex justify-between items-center">
+        <div className="text-2xl font-bold text-mosaic-500">Mosaic</div>
+        <Link
+          to="/admin"
+          className="px-4 py-2 bg-mosaic-500 text-white rounded-md hover:bg-mosaic-600 transition-colors"
+        >
+          Admin Panel
+        </Link>
+      </nav>
+      <Hero />
+      <Services />
+      <AboutUs />
+      <Projects />
+      <Clients />
+      <Newsletter />
+    </div>
+  );
+};
+
+export default Index;
