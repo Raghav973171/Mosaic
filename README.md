@@ -1,8 +1,5 @@
-Here’s an enhanced README with detailed setup instructions for running the project locally and additional project information:
 
----
-
-# Mosaic
+ MOSAIC
 
 **Mosaic** is a consulting and marketing website created to provide business solutions and boost digital presence. Built with a modern tech stack, Mosaic is designed to deliver a smooth user experience and equip clients with tools to achieve their marketing and business goals.
 
@@ -127,4 +124,7 @@ This project is licensed under the MIT License. See the `LICENSE` file for detai
 
 - Special thanks to open-source libraries and tools.
 - Acknowledgment for any guidance and resources that supported the project.
+
+ 
+
 
